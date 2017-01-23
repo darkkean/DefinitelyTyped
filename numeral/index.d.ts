@@ -22,7 +22,6 @@ interface NumeralJSLocale {
 	};
 }
 
-
 // http://numeraljs.com/#custom-formats
 interface NumeralJsFormat {
 	regexps: {
@@ -31,6 +30,23 @@ interface NumeralJsFormat {
 	},
 	format: (value: any, format: string, roundingFunction: Function) => string,
 	unformat: (value: string) => number
+}
+
+interface NumeralJSLanguage {
+    delimiters: {
+        thousands: string;
+        decimal: string;
+    };
+    abbreviations: {
+        thousand: string;
+        million: string;
+        billion: string;
+        trillion: string;
+    };
+    ordinal(num: number): string;
+    currency: {
+        symbol: string;
+    };
 }
 
 type RegisterType = 'format' | 'locale';
@@ -71,6 +87,10 @@ interface Numeral {
 	multiply(value: any): Numeral;
 	divide(value: any): Numeral;
 	difference(value: any): number;
+
+    /** Added support for language. Supported version <1.5.6 **/
+
+    language(key?: string, values?: NumeralJSLanguage): Numeral | string;
 }
 
 declare var numeral: Numeral;
